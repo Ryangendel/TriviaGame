@@ -1,3 +1,6 @@
+$(document).ready(function(){
+
+
 // variables
 
 var questions = [
@@ -27,27 +30,44 @@ var questions = [
 
 $('#start').on('click', function() {
 	gameStart();
-})
+});
 
+var checkanswergame = function(){
+	for (var i = 0; i<questions.length;i++){
+	var rightanswer = questions[i].correctAnswer;
+
+		console.log(rightanswer);
+	}
+}	
 // Functions
 
 var gameStart= function(){
 	var j=0;
 	var questionString= " " ;
 	for(var i=0; i<questions.length;i++){
+		console.log(questions[i])
 		j++;
 
+	
 	var answerString= " ";
 	
 	questionString='<div>' + j + '.' + questions[i].question + '</div>';
 
 	for(var a = 0; a < questions[i].answer.length; a++){
-		answerString +='<input class="answer" type="radio">' + questions[i].answers[a]+ '</input>';
+		answerString +='<input name="answername" type="radio" value="'+ questions[i].answer[a] +'">' + questions[i].answer[a]+ '<br>';
+		
 	}
 
-	
+	$('#questions').append(questionString + '<form>' + answerString + '</form>');
 
-
+		}
+		var button = '<button id="answercheck" type="summit">Check Answers</button>'
+		$('#checkanswers').append(button);
 	}
 
-}
+	$('#answercheck').on('click', function() {
+		checkanswergame();
+	});
+
+});//end of document.ready func
+
